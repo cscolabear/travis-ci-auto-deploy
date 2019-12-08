@@ -42,10 +42,16 @@ table, th, td {
 </style>
 
 <?php
+date_default_timezone_set('Asia/Taipei');
 $today_date = gmdate('Y-m-d');
+
+$dt = new DateTime();
+$dt->setTimestamp($data['last_update_date_at']);
+$last_update_date = $dt->format('Y-m-d H:i:s');
+
 echo "<h1>
     今日政府資料開放平台 - 電影類 Preview ({$today_date})
-    <span>最後更新日: {$data['last_update_date']}</span>
+    <span>最後更新日: {$last_update_date}</span>
 </div>";
 echo '
 <table>

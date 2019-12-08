@@ -23,7 +23,7 @@ usort($json_data, function($a, $b) {
 
 $data = [
     'activities' => $json_data,
-    'last_update_date' => gmdate('Y-m-d H:i:s'),
+    'last_update_date_at' => time(),
 ];
 file_put_contents('./json_data.json', json_encode($data));
 
