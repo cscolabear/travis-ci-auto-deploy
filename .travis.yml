@@ -1,0 +1,25 @@
+language: php
+language: php
+php:
+  - '7.2'
+
+branches:
+  only:
+    - master
+
+addons:
+  ssh_known_hosts:
+    - "$HOST_IP"
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in .travis/digitalocean_travis_rsa.enc -out ~/.ssh/id_rsa -d
+  - chmod 600 ~/.ssh/id_rsa
+  - echo -e "Host ${HOST_IP}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - php download_and_save.php
+
+script:
+  - rsync -az --delete --exclude=".*" ./* ${SSH_USER}@${HOST_IP}:${PUBLISH_PATH}
+
+notifications:
+  slack:
+    secure: g+lxk5faBmQbjx5H65buHgh1r3DgnqL4BaWbhJPvMZC9M7NrO7ymXRQRdV8DvkGYfnQoYEz77jxhxiMXwhs8BlEibaw6vd/WQ0r+m95E1LB/P6d9wcA7GQBIb1b0zTYXcDp07ClTGtX1gAfzYJDocS9m6F2Ry+PXMbnkr3ZXu6DjK/sCR/YOkaDMMSx0/2fSgvvMmB0GpXRt8/3zLIyQD7mpzo3zpWAWCw0m8s8seVOPLX7uUaUji6pgbyDUUFsRV5MljUyRi5snbyW7JaPQrbaLXpQyBS/A/fcERcqvc4kx8wmZ4KqeAmJhhTUDvQGeBsRMk0FwWRhtofk6GT490May/ahU4d/Csp7y+W4A6PEjiXC6m7aEwxz2M2zbspxMeNWHAkNWJEpi1y6K9YxPv8pRlQjgepLOxbcCejLF2UHiNqoq7KfASpYjJ1rYLt1flvTWyEFpYJFm7y/q7qjwXuMssp+soYRR2GIdgFxrWEva7TReVOiLjIpG2HLstB7QONY5kOM8DzdEdGiUAcZHqqW/k4GZZaqX08hfExyKV6SxEkxEwQaE+s47Z7qjkeffPdprsU3OI17NbqXROYDGmLcy1Yt6JDwBuwfRjYld6HlfojHpTWUIyalznF0+xlp8MKMjgWalgWREp0saV//r8LOlMExIEkm8+ohEY0Q0bvM=
