@@ -21,6 +21,9 @@ foreach ($data['activities'] as $activity) {
 }
 ?>
 <style>
+h1 span {
+    font-size: 10px;
+}
 table {
   width: 90%;
   text-align: left;
@@ -39,7 +42,11 @@ table, th, td {
 </style>
 
 <?php
-echo "最後更新日: {$data['last_update_date']}";
+$today_date = gmdate('Y-m-d');
+echo "<h1>
+    今日政府資料開放平台 - 電影類 Preview ({$today_date})
+    <span>最後更新日: {$data['last_update_date']}</span>
+</div>";
 echo '
 <table>
     <tr>
@@ -61,3 +68,7 @@ foreach ($today_activity_list as $activity) {
     ";
 }
 echo '</table>';
+?>
+<div>
+    open api source: <a href="https://data.gov.tw/dataset/6010" target="_blank">政府資料開放平台 - 電影類</a>
+</div>
