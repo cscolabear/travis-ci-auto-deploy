@@ -2,15 +2,37 @@
 $json_data = file_get_contents('json_data.json');
 $data = json_decode($json_data, true);
 
+if (!$data) {
+    throw new Exception('json data not found!');
+}
+
 $today_activity_list = [];
-$today_timestamp = strtotime(gmdate('Y-m-d'));
+define('TODAY_TIMESTAMP', strtotime(gmdate('Y-m-d')));
+
+function isActivityPeriod(string $start_date, string $end_date) {
+    $start_date_timestamp = strtotime($start_date);
+    $end_date_timestamp = strtotime($end_date);
+
+    if (
+        $end_date_timestamp > TODAY_TIMESTAMP
+        && TODAY_TIMESTAMP >= $start_date_timestamp
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
 foreach ($data['activities'] as $activity) {
     if (count($activity) >= 100) {
         break;
     }
-    if (strtotime($activity['startDate']) !== $today_timestamp) {
+
+    if (!isActivityPeriod($activity['startDate'], $activity['endDate'])) {
         continue;
     }
+    $start_date_timestamp = strtotime($activity['startDate']);
+    $end_date_timestamp = strtotime($activity['endDate']);
 
     $today_activity_list[] = [
         'title' => $activity['title'],
