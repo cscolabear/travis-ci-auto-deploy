@@ -10,7 +10,7 @@ Demo url: https://cola.workxplay.net/travis-ci-auto-deploy/
 open data source: https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=8
 
 
-intro: https://cola.workxplay.net/travis-cl-and-github-use-rsync-auto-deploy/
+intro: https://cola.workxplay.net/ci-cd-travis-cl-and-github-use-rsync-auto-deploy/
 
 ---
 
