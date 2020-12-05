@@ -1,6 +1,6 @@
 language: php
 php:
-  - '7.2'
+  - '7.4'
 
 branches:
   only:
@@ -13,7 +13,7 @@ addons:
 before_install:
   - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in .travis/digitalocean_travis_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
-  - echo -e "Host ${HOST_IP}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host ${HOST_IP}\n\tPort ${HOST_PORT}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - php download_and_save.php
 
 script:
